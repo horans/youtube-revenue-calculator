@@ -24,10 +24,10 @@ main { overflow: hidden; position: relative; }
 .ytrc-tool { opacity: .4; position: absolute; right: 1rem; top: 1rem; }
 .ytrc-tool:hover { opacity: 1; }
 .ytrc-icon { background-position: center; background-repeat: no-repeat; background-size: contain; cursor: pointer; display: inline-block; height: 1.5rem; vertical-align: top; width: 1.5rem; }
-.ytrc-icon-close { background-image: url("./icon-close.svg"); }
-.ytrc-icon-help { background-image: url("./icon-help.svg"); }
-.ytrc-icon-info { background-image: url("./icon-info.svg"); }
-.ytrc-icon-settings { background-image: url("./icon-settings.svg"); }
+.ytrc-icon-close { background-image: url("./asset/icon-close.svg"); }
+.ytrc-icon-help { background-image: url("./asset/icon-help.svg"); }
+.ytrc-icon-info { background-image: url("./asset/icon-info.svg"); }
+.ytrc-icon-settings { background-image: url("./asset/icon-settings.svg"); }
 /* content */
 .ytrc-content { background-color: var(--smoke); max-height: 100vh; min-height: 100vh; overflow: hidden; padding-bottom: 3.75rem; padding-top: 3.75rem; } /* csslint allow: known-properties */
 .ytrc-content::after { background-color: #000; background-color: rgba(0, 0, 0, 0.5); content: ""; height: 100%; left: 0; opacity: 0; position: absolute; top: 0; width: 100%; z-index: -1; }
@@ -55,7 +55,7 @@ main { overflow: hidden; position: relative; }
 .highlight .ytrc-result-number { color: var(--white); } /* csslint allow: known-properties */
 .masthead-search-terms-border input { outline: none; } /* csslint allow: outline-none */
 #masthead-search { max-width: 100%; } /* csslint allow: ids */
-#masthead-search .search-btn-component .yt-uix-button-content { background: url('./icon-search.svg') no-repeat center cover; } /* csslint allow: ids */
+#masthead-search .search-btn-component .yt-uix-button-content { background: url('./asset/icon-search.svg') no-repeat center cover; } /* csslint allow: ids */
 .noUi-connect { background-color: var(--red); } /* csslint allow: known-properties */
 /* setting */
 .ytrc-setting { background-color: var(--light); height: 100%; max-width: 100%; opacity: 0; padding: 1rem; position: absolute; right: 0; top: 0; transform: translateX(100%); width: 15rem; } /* csslint allow: box-model, known-properties */
