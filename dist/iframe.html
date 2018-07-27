@@ -1,0 +1,270 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+
+    <link rel="stylesheet" href="./vendor/bootstrap-reboot.min.css" />
+    <link rel="stylesheet" href="./vendor/bootstrap-grid.min.css" />
+    <link rel="stylesheet" href="./vendor/pretty-checkbox.min.css" />
+    <link rel="stylesheet" href="./vendor/nouislider.min.css" />
+    <link rel="stylesheet" href="./asset/youtube.css" />
+    <link rel="stylesheet" href="./asset/youtube-revenue.css" />
+    <link rel="shortcut icon" href="./asset/favicon.ico" type="image/x-icon">
+    <title>YouTube Revenue Calculator</title>
+    <script>var key = 'AIzaSyAeEB6EE-MHBfHUXIeifk6qzexYbtR2Wr0' // eslint-disable-line</script>
+  </head>
+  <body>
+    <!--
+    /*****************************************************
+    *  project: youtube revenue calculator               *
+    *  description: iframe to be embeddd                 *
+    *  author: horans@gmail.com                          *
+    *  url: github.com/horans/youtube-revenue-calculator *
+    *  update: 180727                                    *
+    *****************************************************/
+     -->
+
+    <main id="app" :class="{ 'ready': state.init, 'loading': state.wait, 'guide': state.help, 'setting': state.tool }">
+      <!-- content -->
+      <section class="ytrc-panel ytrc-content transition" @click.self="togglePanel('tool', false)">
+        <nav class="ytrc-tool transition">
+          <i class="ytrc-icon ytrc-icon-settings" @click="togglePanel('tool')"></i>
+          <i class="ytrc-icon ytrc-icon-help" @click="togglePanel('help')"></i>
+        </nav>
+        <div class="container">
+          <div class="ytrc-heading text-center">
+            <h1 class="ytrc-title">{{ config.title || 'Estimated YouTube Revenue by ' + (config.channel ? 'Channel' : 'Video') }}</h1>
+            <div class="ytrc-desc" v-if="config.desc">Calculate How Much You Can Make</div>
+          </div>
+          <div class="ytrc-main" :class="config.highlight ? 'highlight' : ''">
+            <div class="row">
+              <div class="col-12 ytrc-input-container" :class="config.highlight ? 'col-md-8' : ''">
+                <div class="ytrc-input">
+                  <div class="ytrc-input-item ytrc-input-link" v-show="config.link">
+                    <div class="ytrc-input-title text-center">{{ 'Import YouTube ' + (config.channel ? 'Channel' : 'Video' ) + ' URL' }}</div>
+                    <div id="yt-masthead-container" class="clearfix yt-base-gutter">
+                      <div id="yt-masthead">
+                        <div id="yt-masthead-content">
+                          <form id="masthead-search" class=" consolidated-form" @submit.prevent="queryYouTube">
+                            <button class="yt-uix-button yt-uix-button-default search-btn-component" type="submit" dir="ltr" tabindex="2">
+                              <span class="yt-uix-button-content transition">Submit</span>
+                            </button>
+                            <div id="masthead-search-terms" class="masthead-search-terms-border" dir="ltr">
+                              <input id="masthead-search-term" autocomplete="off" class="search-term masthead-search-renderer-input" name="query" value="" type="url" tabindex="1" :placeholder="'eg., ' + (api[config.channel ? 'channel' : 'video'].example)" title="query" aria-label="query" aria-haspopup="false" role="combobox" aria-autocomplete="list" dir="ltr" spellcheck="false" v-model="link.path">
+                            </div>
+                          </form>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="ytrc-input-error text-small text-red" v-if="!state.done">Not a valid YouTube {{ config.channel ? 'channel' : 'video' }} link!</div>
+                  </div>
+                  <div class="ytrc-input-item ytrc-input-views" v-show="!config.link">
+                    <div class="ytrc-input-title text-center">Daily Video Views</div>
+                    <v-nus class="ytrc-input-slider" :config="slider.views.config" :value="slider.views.value" @update="slider.views.value = $event" />
+                  </div>
+                  <div class="ytrc-input-item ytrc-input-cpm" v-show="config.cpm">
+                    <div class="ytrc-input-title text-center">Estimated CPM</div>
+                    <v-nus class="ytrc-input-slider" :config="slider.cpm.config" :value="slider.cpm.value" @update="slider.cpm.value = $event" />
+                  </div>
+                  <div class="ytrc-input-item ytrc-input-note text-small" v-show="config.note" ref="note-content">
+                    <p>Note: This calculator estimates the money that can be obtained from a YouTube video based on the number of views and the RPM (Revenue per 1000 Impressions). The default RPM range is from $1.36 to $3.40.</p>
+                    <p>It is important to note that this RPM range is AFTER the cut Google takes from Adsense earnings which is 45%. Thus the total earnings on YouTube is estimated at near $2.00 to $5.00 RPM.</p>
+                  </div>
+                </div>
+              </div>
+              <div class="col-12 ytrc-output-container" :class="config.highlight ? 'col-md-4' : ''">
+                <div class="ytrc-output text-center">
+                  <div class="row">
+                    <div class="col-12" :class="config.highlight ? '' : 'col-md-4'" v-if="config.detail && config.link && !config.channel">
+                      <div class="ytrc-result">
+                        <div class="ytrc-result-title">Channel Title</div>
+                        <div class="ytrc-result-number">{{ link.channel }}</div>
+                      </div>
+                    </div>
+                    <div class="col-12" :class="config.highlight ? '' : 'col-md-4'" v-if="config.detail && config.channel">
+                      <div class="ytrc-result">
+                        <div class="ytrc-result-title">Number of Total Subscribers</div>
+                        <div class="ytrc-result-number">{{ formatNumber(link.subscribers) }}</div>
+                      </div>
+                    </div>
+                    <div class="col-12" :class="config.highlight ? '' : 'col-md-4'" v-if="config.detail && !config.channel">
+                      <div class="ytrc-result">
+                        <div class="ytrc-result-title">Number of Total Likes</div>
+                        <div class="ytrc-result-number">{{ formatNumber(link.likes) }}</div>
+                      </div>
+                    </div>
+                    <div class="col-12" :class="config.highlight ? '' : 'col-md-4'" v-if="config.detail && config.link && config.channel">
+                      <div class="ytrc-result">
+                        <div class="ytrc-result-title">Number of Total Videos</div>
+                        <div class="ytrc-result-number">{{ formatNumber(link.videos) }}</div>
+                      </div>
+                    </div>
+                    <div class="col-12" :class="config.highlight ? '' : (config.link && !config.detail ? 'col-md-6' : 'col-md-4')" v-if="config.link">
+                      <div class="ytrc-result">
+                        <div class="ytrc-result-title">Number of Total Video Views</div>
+                        <div class="ytrc-result-number">{{ formatNumber(link.views) }}</div>
+                      </div>
+                    </div>
+                    <div class="col-12" :class="config.highlight ? '' : 'col-md-4'" v-if="config.detail">
+                      <div class="ytrc-result">
+                        <div class="ytrc-result-title">{{ config.channel ? 'Channel' : 'Video' }} Title</div>
+                        <div class="ytrc-result-number">{{ link.title }}</div>
+                      </div>
+                    </div>
+                    <div class="col-12" :class="config.highlight ? '' : 'col-md-4'" v-if="config.detail">
+                      <div class="ytrc-result">
+                        <div class="ytrc-result-title">{{ config.channel ? 'Channel' : 'Video' }} Published</div>
+                        <div class="ytrc-result-number">{{ link.publish }}</div>
+                      </div>
+                    </div>
+                    <div class="col-12" :class="config.highlight ? '' : (config.link && !config.detail ? 'col-md-6' : 'col-md-4')">
+                      <div class="ytrc-result" :class="!config.highlight && !config.detail && config.link ? 'ytrc-result-border' : ''">
+                        <div class="ytrc-result-title">Estimated {{ config.link ? 'Total' : 'Daily' }} Earnings</div>
+                        <div class="ytrc-result-number">$ {{ formatNumber(calculateRevenue(slider.cpm.value[0]), true) }} ~ $ {{ formatNumber(calculateRevenue(slider.cpm.value[1]), true) }}</div>
+                      </div>
+                    </div>
+                    <div class="col-12" :class="config.highlight ? '' : 'col-md-4'" v-if="!config.link">
+                      <div class="ytrc-result">
+                        <div class="ytrc-result-title">Estimated Monthly Earnings</div>
+                        <div class="ytrc-result-number">$ {{ formatNumber(calculateRevenue(slider.cpm.value[0], 30), true) }} ~ $ {{ formatNumber(calculateRevenue(slider.cpm.value[1], 30), true) }}</div>
+                      </div>
+                    </div>
+                    <div class="col-12" :class="config.highlight ? '' : 'col-md-4'" v-if="!config.link">
+                      <div class="ytrc-result">
+                        <div class="ytrc-result-title">Estimated Yearly Earnings</div>
+                        <div class="ytrc-result-number">$ {{ formatNumber(calculateRevenue(slider.cpm.value[0], 365), true) }} ~ $ {{ formatNumber(calculateRevenue(slider.cpm.value[1], 365), true) }}</div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- setting -->
+      <section class="ytrc-panel ytrc-setting transition">
+        <nav class="ytrc-tool transition">
+          <i class="ytrc-icon ytrc-icon-close pull-right" @click="togglePanel('tool')"></i>
+        </nav>
+        <div class="container">
+          <h2>Options</h2>
+          <div class="pretty p-switch p-fill">
+            <input type="checkbox" v-model="config.channel" />
+            <div class="state">
+              <label>Channel</label>
+            </div>
+          </div>
+          <div class="pretty p-switch p-fill">
+            <input type="checkbox" v-model="config.desc" />
+            <div class="state">
+              <label>Description</label>
+            </div>
+          </div>
+          <div class="pretty p-switch p-fill">
+            <input type="checkbox" v-model="config.link" />
+            <div class="state">
+              <label>Link Input</label>
+            </div>
+          </div>
+          <div class="pretty p-switch p-fill">
+            <input type="checkbox" v-model="config.cpm" />
+            <div class="state">
+              <label>CPM Input</label>
+            </div>
+          </div>
+          <div class="pretty p-switch p-fill">
+            <input type="checkbox" v-model="config.highlight" />
+            <div class="state">
+              <label>Highlight Result</label>
+            </div>
+          </div>
+          <div class="pretty p-switch p-fill">
+            <input type="checkbox" v-model="config.note" />
+            <div class="state">
+              <label>Show Note</label>
+            </div>
+          </div>
+          <div class="pretty p-switch p-fill">
+            <input type="checkbox" v-model="config.detail" :disabled="!config.link || config.highlight" />
+            <div class="state">
+              <label>Show Detail</label>
+            </div>
+          </div>
+          <div class="pretty p-switch p-fill">
+            <input type="checkbox" v-model="state.title" />
+            <div class="state">
+              <label>Change Title</label>
+            </div>
+          </div>
+          <div class="ytrc-setting-input text-gray" v-if="state.title">
+            <input type="text" v-model="config.title">
+          </div>
+          <div class="pretty p-switch p-fill">
+            <input type="checkbox" v-model="state.key" />
+            <div class="state">
+              <label>Change App Key</label>
+            </div>
+          </div>
+          <div class="ytrc-setting-input text-gray" v-if="state.key">
+            <input type="text" v-model="config.key" spellcheck="false">
+          </div>
+        </div>
+      </section>
+
+      <!-- guide -->
+      <section class="ytrc-panel ytrc-guide transition">
+        <nav class="ytrc-tool transition">
+          <i class="ytrc-icon ytrc-icon-close pull-right" @click="togglePanel('help')"></i>
+        </nav>
+        <div class="container">
+          <h2>Guide to YouTube Revenue Calculator</h2>
+          <h3>CPM</h3>
+          <div ref="note-guide"></div>
+          <hr>
+          <h3>Options</h3>
+          <p>All of the options can by pass by URL query. When you change them in setting panel, the URL will update at the same time. Most of the options use "1/0" to present "on/off"(eg., <code>channel=1&cpm=1</code>).</p>
+          <ul>
+            <li><code>key</code>: Generate your own YouTube app <a href="https://console.developers.google.com/" target="_blank">key</a>, and change it in <code>head</code> or pass by URL query.</li>
+            <li><code>channel</code>: Default mode is for "video", turn this on for "channel".</li>
+            <li><code>desc</code>: To skip description under heading, turn this off.</li>
+            <li><code>link</code>: To manually input video views, turn this off.</li>
+            <li><code>cpm</code>: To manually input CPM, turn this on.</li>
+            <li><code>note</code>: To show note for CPM, turn this on.</li>
+            <li><code>highlight</code>: To highlight result with YouTube red background, turn this on.</li>
+            <li><code>detail</code>: To show detail for channel/video, turn this on. (Disabled when <code>link</code> is off, or <code>highlight</code> is on.)</li>
+            <li><code>title</code>: You can override title with this.</li>
+          </ul>
+        </div>
+      </section>
+
+      <!-- loading -->
+      <section class="ytrc-loading transition">
+        <div class="ytp-spinner transition">
+          <div class="ytp-spinner-container">
+            <div class="ytp-spinner-rotator">
+              <div class="ytp-spinner-left">
+                <div class="ytp-spinner-circle"></div>
+              </div>
+              <div class="ytp-spinner-right">
+                <div class="ytp-spinner-circle"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <!-- vendor -->
+    <script src="./vendor/url.min.js"></script>
+    <script src="./vendor/vue.min.js"></script>
+    <script src="./vendor/axios.min.js"></script>
+    <script src="./vendor/webfontloader.js"></script>
+    <script src="./vendor/nouislider.min.js"></script>
+    <script src="./vendor/vue-nouislider.js"></script>
+    <!-- inpage -->
+    <script src="./asset/youtube-revenue.js"></script>
+  </body>
+</html>
