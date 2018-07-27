@@ -1,11 +1,12 @@
-# youtube-revenue-calculator
+# youtube revenue calculator
 
-"youtube revenue calculator", or "ytrc", will calculate the revenue of [YouTube](https://www.youtube.com/) video/channel, base on video view counts.
+"youtube revenue calculator" (or "ytrc"),
+will calculate the revenue of [YouTube](https://www.youtube.com/) video/channel, base on video view counts.
 Multiple options provided.
 
 ## Install
 
-Upload `dist` folder to your server, eg.:
+Upload everthing to your server, eg.:
 
 ```text
 //sample.com/ytrc/
