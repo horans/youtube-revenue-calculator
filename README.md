@@ -1,7 +1,8 @@
 # youtube revenue calculator
 
 "youtube revenue calculator" (or "ytrc"),
-will calculate the revenue of [YouTube](https://www.youtube.com/) video/channel, base on video view counts.
+will calculate the revenue of [YouTube](https://www.youtube.com/) video/channel,
+base on video view counts.
 Multiple options provided.
 
 ## Install
@@ -22,7 +23,7 @@ Embed `iframe.html` into your page.
 
 ## Guide
 
-All of the options can by pass by URL query.
+All of the options can pass by URL query.
 When you change them in setting panel, the URL will update at the same time.
 Most of the options use "1/0" to present "on/off".
 (eg., `channel=1&cpm=1`)
