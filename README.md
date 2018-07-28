@@ -21,7 +21,7 @@ Embed `iframe.html` into your page.
 <iframe src="//sample.com/ytrc/iframe.html" width="800" height="600"></iframe>
 ```
 
-## Guide
+## Options
 
 All of the options can pass by URL query.
 When you change them in setting panel, the URL will update at the same time.
@@ -29,7 +29,7 @@ Most of the options use "1/0" to present "on/off".
 (eg., `channel=1&link=0`)
 
 * `key`: Generate your own YouTube app [key](https://console.developers.google.com/).
-    * change it in iframe `head` or pass by URL query.
+    * Change it in iframe `head` or pass by URL query.
 * `channel`: Default mode is for "video", turn this on for "channel".
 * `desc`: To skip description under heading, turn this off.
 * `link`: To manually input video views, turn this off.

@@ -13,7 +13,7 @@ body { background-color: var(--smoke); color: var(--black); } /* csslint allow: 
 .wf-active body { font-family: "Roboto", Arial, sans-serif; }
 code { background-color: #eee; font-family: inherit; padding: 0 .25rem; }
 main { overflow: hidden; position: relative; }
-.transition, .transition::before, .transition::after { transition: all ease .3s; }
+.transition, .transition::before, .transition::after { -webkit-transition: all ease-out .3s; -o-transition: all ease-out .3s; -moz-transition: all ease-out .3s; transition: all ease-out .3s; }
 .text-center { text-align: center; }
 .text-gray { opacity: .6; }
 .text-red { color: var(--red); } /* csslint allow: known-properties */
@@ -56,20 +56,23 @@ main { overflow: hidden; position: relative; }
 #masthead-search .search-btn-component .yt-uix-button-content { background: url('./asset/icon-search.svg') no-repeat center cover; } /* csslint allow: ids */
 .noUi-connect { background-color: var(--red); } /* csslint allow: known-properties */
 /* setting */
-.ytrc-setting { background-color: var(--light); height: 100%; max-width: 100%; opacity: 0; padding: 1rem; position: absolute; right: 0; top: 0; transform: translateX(100%); width: 15rem; } /* csslint allow: box-model, known-properties */
-.setting .ytrc-setting { opacity: 1; transform: translateX(0); z-index: 13; }
+.ytrc-setting { background-color: var(--light); height: 100%; max-width: 100%; opacity: 0; padding: 1rem; position: absolute; right: 0; top: 0; -webkit-transform: translateX(100%); -moz-transform: translateX(100%); -ms-transform: translateX(100%); -o-transform: translateX(100%); transform: translateX(100%); width: 15rem; } /* csslint allow: box-model, known-properties */
+.setting .ytrc-setting { opacity: 1; -webkit-transform: translateX(0); -moz-transform: translateX(0); -ms-transform: translateX(0); -o-transform: translateX(0); transform: translateX(0); z-index: 13; }
 .ytrc-setting .pretty, .ytrc-appkey { font-size: .875rem; margin-bottom: .75rem; }
 .ytrc-setting-input input { display: block; font-size: .75rem; line-height: 1.25; padding: .25rem .1rem; width: 100%; } /* csslint allow: box-model */
 /* guide and loading */
 .ytrc-guide, .ytrc-loading { background-color: var(--smoke); height: 100%; left: 0; position: absolute; top: 0; width: 100%; } /* csslint allow: box-model, known-properties */
-.ytrc-guide { background-color: var(--white); transform: translateY(-30%); } /* csslint allow: box-model, known-properties */
+.ytrc-guide { background-color: var(--white); -webkit-transform: translateY(-30%); -moz-transform: translateY(-30%); -ms-transform: translateY(-30%); -o-transform: translateY(-30%); transform: translateY(-30%) } /* csslint allow: box-model, known-properties */
 .ytrc-guide, .ready .ytrc-loading { opacity: 0; z-index: -1; }
-.guide .ytrc-guide, .ytrc-loading { opacity: 1; transform: translateY(0); z-index: 12; }
+.guide .ytrc-guide, .ytrc-loading { opacity: 1; -webkit-transform: translateY(0); -moz-transform: translateY(0); -ms-transform: translateY(0); -o-transform: translateY(0); transform: translateY(0); z-index: 12; }
 .loading .ytrc-loading { opacity: .3; z-index: 12; }
 .ready .ytrc-loading .ytp-spinner { opacity: 0; pointer-events: none; }
 .setting .ytrc-loading { background-color: #000; background-color: rgba(0, 0, 0, 0.5); opacity: 1; z-index: 12; }
 /* mobile */
 @media(max-width: 767px) {
+.ytrc-content { padding-bottom: 1rem; padding-top: 2.75rem; }
+.highlight { margin-top: 20px; }
+.ytrc-input { margin: 30px 0 0; }
 .noUi-value-large { opacity: 0; }
 .ytrc-result-border .ytrc-result-title { width: 85%; }
 }
