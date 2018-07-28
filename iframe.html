@@ -21,13 +21,13 @@
     *  description: iframe to be embeddd                 *
     *  author: horans@gmail.com                          *
     *  url: github.com/horans/youtube-revenue-calculator *
-    *  update: 180727                                    *
+    *  update: 180728                                    *
     *****************************************************/
      -->
 
     <main id="app" :class="{ 'ready': state.init, 'loading': state.wait, 'guide': state.help, 'setting': state.tool }">
       <!-- content -->
-      <section class="ytrc-panel ytrc-content transition" @click.self="togglePanel('tool', false)">
+      <section class="ytrc-panel ytrc-content transition">
         <nav class="ytrc-tool transition">
           <i class="ytrc-icon ytrc-icon-settings" @click="togglePanel('tool')"></i>
           <i class="ytrc-icon ytrc-icon-help" @click="togglePanel('help')"></i>
@@ -241,7 +241,7 @@
       </section>
 
       <!-- loading -->
-      <section class="ytrc-loading transition">
+      <section class="ytrc-loading transition" @click.self="togglePanel('tool', false)">
         <div class="ytp-spinner transition">
           <div class="ytp-spinner-container">
             <div class="ytp-spinner-rotator">
