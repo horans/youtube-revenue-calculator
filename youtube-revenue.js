@@ -5,7 +5,7 @@
 *  url: github.com/horans/youtube-revenue-calculator *
 *  update: 180730                                    *
 *****************************************************/
-/* global Vue, WebFont, url, key, axios */
+/* global Vue, WebFont, url, axios */
 /* eslint no-unused-vars: ["error", { "varsIgnorePattern": "ytrc" }] */
 
 /* bus */
@@ -31,7 +31,7 @@ var ytrc = new Vue({
       note: url('?note') === undefined ? true : url('?note') === '1',
       detail: url('?detail') === undefined ? false : url('?detail') === '1',
       title: url('?title') || '',
-      key: url('?key') || key || ''
+      key: url('?key') || window.key || ''
     },
     state: {
       init: false,
@@ -39,8 +39,8 @@ var ytrc = new Vue({
       done: true,
       tool: false,
       help: false,
-      title: false,
-      key: false
+      title: url('?title'),
+      key: url('?key')
     },
     link: {
       path: '',
@@ -238,12 +238,14 @@ var ytrc = new Vue({
       deep: true,
       immediate: true
     },
-    // update url when key/title state changes 
-    'state.key': function () {
+    // update url when key/title state changes
+    'state.key': function (nv) {
       this.toggleLink()
+      if (!nv) this.config.key = window.key
     },
-    'state.title': function () {
+    'state.title': function (nv) {
       this.toggleLink()
+      if (!nv) this.config.title = ''
     },
     // link counter with slider for views
     'slider.views.value': {
