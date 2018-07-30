@@ -18,7 +18,7 @@ Upload everthing to your server, eg.:
 Embed `iframe.html` into your page.
 
 ```html
-<iframe src="//sample.com/ytrc/iframe.html" width="800" height="600"></iframe>
+<iframe src="//sample.com/ytrc/iframe.html" frameBorder="0" width="1000" height="800"></iframe>
 ```
 
 ## Options

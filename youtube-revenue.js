@@ -3,7 +3,7 @@
 *  description: main function                        *
 *  author: horans@gmail.com                          *
 *  url: github.com/horans/youtube-revenue-calculator *
-*  update: 180727                                    *
+*  update: 180730                                    *
 *****************************************************/
 /* global Vue, WebFont, url, key, axios */
 /* eslint no-unused-vars: ["error", { "varsIgnorePattern": "ytrc" }] */
@@ -154,19 +154,22 @@ var ytrc = new Vue({
     },
     toggleLink: function () {
       // stackoverflow.com/questions/1714786/
-      var serialize = function (obj) {
+      var serialize = function (obj, state) {
         var str = []
         for (var p in obj) {
           if (obj.hasOwnProperty(p)) {
             var s = obj[p]
+            var v = true
             if (typeof s === 'boolean') s = s ? 1 : 0
-            str.push(encodeURIComponent(p) + '=' + encodeURIComponent(s))
+            if (p === 'key' && !state.key) v = false
+            if (p === 'title' && !state.title) v = false
+            if (v) str.push(encodeURIComponent(p) + '=' + encodeURIComponent(s))
           }
         }
         return str.join('&')
       }
       var l = window.location
-      window.history.replaceState(null, null, l.protocol + '//' + l.host + l.pathname + '?' + serialize(this.config))
+      window.history.replaceState(null, null, l.protocol + '//' + l.host + l.pathname + '?' + serialize(this.config, this.state))
     },
     // calculate revennue
     calculateRevenue: function (cpm, days) {
@@ -234,6 +237,13 @@ var ytrc = new Vue({
       },
       deep: true,
       immediate: true
+    },
+    // update url when key/title state changes 
+    'state.key': function () {
+      this.toggleLink()
+    },
+    'state.title': function () {
+      this.toggleLink()
     },
     // link counter with slider for views
     'slider.views.value': {
