@@ -3,7 +3,7 @@
 *  description: main style                           *
 *  author: horans@gmail.com                          *
 *  url: github.com/horans/youtube-revenue-calculator *
-*  update: 180728                                    *
+*  update: 180731                                    *
 *****************************************************/
 /* common */
 /* csslint ignore:start */
@@ -26,7 +26,7 @@ main { overflow: hidden; position: relative; }
 .ytrc-icon { background-position: center; background-repeat: no-repeat; background-size: contain; cursor: pointer; display: inline-block; height: 1.5rem; vertical-align: top; width: 1.5rem; }
 .ytrc-icon-close { background-image: url("./asset/icon-close.svg"); }
 .ytrc-icon-help { background-image: url("./asset/icon-help.svg"); }
-.ytrc-icon-info { background-image: url("./asset/icon-info.svg"); }
+.ytrc-icon-info { background-image: url("./asset/icon-info.svg"); cursor: default; opacity: .55; vertical-align: middle; }
 .ytrc-icon-settings { background-image: url("./asset/icon-settings.svg"); }
 /* content */
 .ytrc-content { background-color: var(--smoke); max-height: 100vh; min-height: 100vh; overflow: hidden; padding-bottom: 3.75rem; padding-top: 3.75rem; } /* csslint allow: known-properties */
@@ -53,7 +53,7 @@ main { overflow: hidden; position: relative; }
 .highlight .ytrc-result-number { color: var(--white); } /* csslint allow: known-properties */
 .masthead-search-terms-border input { outline: none; } /* csslint allow: outline-none */
 #masthead-search { max-width: 100%; } /* csslint allow: ids */
-#masthead-search .search-btn-component .yt-uix-button-content { background: url('./asset/icon-search.svg') no-repeat center cover; } /* csslint allow: ids */
+#masthead-search .search-btn-component .yt-uix-button-content { background: url('./asset/icon-search.svg') no-repeat center; background-size: 120%; } /* csslint allow: ids */
 .noUi-connect { background-color: var(--red); } /* csslint allow: known-properties */
 /* setting */
 .ytrc-setting { background-color: var(--light); height: 100%; max-width: 100%; opacity: 0; padding: 1rem; position: absolute; right: 0; top: 0; -webkit-transform: translateX(100%); -moz-transform: translateX(100%); -ms-transform: translateX(100%); -o-transform: translateX(100%); transform: translateX(100%); width: 15rem; } /* csslint allow: box-model, known-properties */
