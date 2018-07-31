@@ -27,7 +27,7 @@ var ytrc = new Vue({
       channel: url('?channel') === undefined ? false : url('?channel') === '1',
       desc: url('?desc') === undefined ? true : url('?desc') === '1',
       link: url('?link') === undefined ? true : url('?link') === '1',
-      cpm: url('?cpm') === undefined ? false : url('?cpm') === '1',
+      rpm: url('?rpm') === undefined ? false : url('?rpm') === '1',
       highlight: url('?highlight') === undefined ? false : url('?highlight') === '1',
       note: url('?note') === undefined ? true : url('?note') === '1',
       detail: url('?detail') === undefined ? false : url('?detail') === '1',
@@ -92,7 +92,7 @@ var ytrc = new Vue({
         },
         value: [1000]
       },
-      cpm: {
+      rpm: {
         config: {
           format: {
             to: function (value) {
@@ -179,9 +179,9 @@ var ytrc = new Vue({
       window.history.replaceState(null, null, l.protocol + '//' + l.host + l.pathname + '?' + serialize(this.config, this.state))
     },
     // calculate revennue
-    calculateRevenue: function (cpm, days) {
-      // views * cpm * days / 1000
-      return (this.link.views * (parseFloat(cpm) || this.slider.cpm.value[0]) * (parseInt(days) || 1) / 1000)
+    calculateRevenue: function (rpm, days) {
+      // views * rpm * days / 1000
+      return (this.link.views * (parseFloat(rpm) || this.slider.rpm.value[0]) * (parseInt(days) || 1) / 1000)
     },
     // format number
     formatNumber: function (num, cur) {
@@ -216,7 +216,7 @@ var ytrc = new Vue({
           },
           timeout: 2000
         }).then(function (res) {
-          if (res.data.length > 0) {
+          if (res.data && res.data.items.length > 0) {
             // success
             t.link.likes = parseInt(res.data.items[0].statistics.likeCount) || 0
             t.link.views = parseInt(res.data.items[0].statistics.viewCount) || 0

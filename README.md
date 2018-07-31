@@ -68,6 +68,11 @@ Most of the options use "1/0" to present "on/off".
 
 ### Change Log
 
+__180731__
+
+* show error
+* replace CPM with RPM
+
 __180727__
 
 * initial release
