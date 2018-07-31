@@ -30,15 +30,17 @@ Most of the options use "1/0" to present "on/off".
 
 * `key`: Generate your own YouTube app [key](https://console.developers.google.com/).
     * Change it in iframe `head` or pass by URL query.
+    * Show in URL only when "Change Key" option is on with setting panel.
 * `channel`: Default mode is for "video", turn this on for "channel".
 * `desc`: To skip description under heading, turn this off.
 * `link`: To manually input video views, turn this off.
-* `cpm`: To manually input CPM, turn this on.
-* `note`: To show note for CPM, turn this on.
+* `rpm`: To manually input RPM, turn this on.
+* `note`: To show note for RPM, turn this on.
 * `highlight`: To highlight result with YouTube red background, turn this on.
 * `detail`: To show detail for channel/video, turn this on.
     * Disabled when `link` is off, or `highlight` is on.
 * `title`: You can override title with this.
+    * Show in URL only when "Change Title" option is on with setting panel.
 
 ## Extra
 
