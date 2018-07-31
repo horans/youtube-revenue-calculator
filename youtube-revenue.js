@@ -3,7 +3,7 @@
 *  description: main function                        *
 *  author: horans@gmail.com                          *
 *  url: github.com/horans/youtube-revenue-calculator *
-*  update: 180730                                    *
+*  update: 180731                                    *
 *****************************************************/
 /* global Vue, WebFont, url, axios */
 /* eslint no-unused-vars: ["error", { "varsIgnorePattern": "ytrc" }] */
@@ -15,7 +15,8 @@ var bus = new Vue()
 WebFont.load({
   google: { families: ['Roboto'] },
   active: function () { bus.$emit('ytrc.font') },
-  inactive: function () { bus.$emit('ytrc.font') }
+  inactive: function () { bus.$emit('ytrc.font') },
+  timeout: 2000
 })
 
 /* vue */
@@ -40,7 +41,13 @@ var ytrc = new Vue({
       tool: false,
       help: false,
       title: url('?title'),
-      key: url('?key')
+      key: url('?key'),
+      error: {
+        url: false,
+        id: false,
+        key: false,
+        other: false
+      }
     },
     link: {
       path: '',
@@ -185,10 +192,19 @@ var ytrc = new Vue({
       var t = this
       var a = t.api[t.config.channel ? 'channel' : 'video']
       var n = t.link.path.indexOf(a.pattern)
-      t.state.done = n > -1
+      if (n > -1) {
+        t.state.done = true
+        t.state.error.url = false
+      } else {
+        t.state.done = false
+        t.state.error.url = true
+      }
       if (t.state.done) {
         t.state.wait = true
         t.state.done = true
+        t.state.error.id = false
+        t.state.error.key = false
+        t.state.error.other = false
         var id = t.link.path.substr(n + a.pattern.length)
         axios({
           method: 'get',
@@ -197,21 +213,34 @@ var ytrc = new Vue({
             part: 'snippet,contentDetails,statistics',
             id: id,
             key: t.config.key
-          }
+          },
+          timeout: 2000
         }).then(function (res) {
-          // success
-          t.link.likes = parseInt(res.data.items[0].statistics.likeCount) || 0
-          t.link.views = parseInt(res.data.items[0].statistics.viewCount) || 0
-          t.link.videos = parseInt(res.data.items[0].statistics.videoCount) || 0
-          t.link.subscribers = parseInt(res.data.items[0].statistics.subscriberCount) || 0
-          t.link.title = res.data.items[0].snippet.title || t.link.default
-          t.link.channel = res.data.items[0].snippet.channelTitle || t.link.default
-          t.link.publish = new Date(res.data.items[0].snippet.publishedAt).toLocaleDateString('en-US') || t.link.default
-          t.state.done = true
-        }).catch(function (res) {
+          if (res.data.length > 0) {
+            // success
+            t.link.likes = parseInt(res.data.items[0].statistics.likeCount) || 0
+            t.link.views = parseInt(res.data.items[0].statistics.viewCount) || 0
+            t.link.videos = parseInt(res.data.items[0].statistics.videoCount) || 0
+            t.link.subscribers = parseInt(res.data.items[0].statistics.subscriberCount) || 0
+            t.link.title = res.data.items[0].snippet.title || t.link.default
+            t.link.channel = res.data.items[0].snippet.channelTitle || t.link.default
+            t.link.publish = new Date(res.data.items[0].snippet.publishedAt).toLocaleDateString('en-US') || t.link.default
+          } else {
+            // id error
+            t.state.done = false
+            t.state.error.id = true
+          }
+        }).catch(function (err) {
           // fail
           t.state.done = false
-          console.log(res)
+          if (err.response && (err.response.status === 400 || err.response.status === 403)) {
+            // key error
+            t.state.error.key = true
+          } else {
+            // other error
+            t.state.error.other = true
+          }
+          window.console.log(err)
         }).then(function () {
         // always
           t.state.wait = false

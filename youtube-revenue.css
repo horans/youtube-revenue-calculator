@@ -38,6 +38,8 @@ main { overflow: hidden; position: relative; }
 .ytrc-input-item { padding-bottom: 40px; }
 .ytrc-input-slider { margin: 50px 0 40px; }
 .ytrc-input-title { font-weight: bold; line-height: 1.25; margin-bottom: 10px; text-align: center; }
+.ytrc-input-link { position: relative; }
+.ytrc-input-error { bottom: 15px; left: 0; position: absolute; }
 .ytrc-result { border-top: dashed 1px var(--smoke); padding: 29px 15px 50px; } /* csslint allow: known-properties */
 .ytrc-result-title { font-size: 16px; font-weight: bold; line-height: 1.25; margin-bottom: 25px; }
 .ytrc-result-number { color: var(--red); font-size: 30px; font-weight: bold; line-height: 1.33; } /* csslint allow: known-properties */
@@ -53,7 +55,7 @@ main { overflow: hidden; position: relative; }
 .highlight .ytrc-result-number { color: var(--white); } /* csslint allow: known-properties */
 .masthead-search-terms-border input { outline: none; } /* csslint allow: outline-none */
 #masthead-search { max-width: 100%; } /* csslint allow: ids */
-#masthead-search .search-btn-component .yt-uix-button-content { background: url('./asset/icon-search.svg') no-repeat center; background-size: 120%; } /* csslint allow: ids */
+#masthead-search .search-btn-component .yt-uix-button-content { background: url('./asset/icon-search.svg') no-repeat center; background-size: 125%; } /* csslint allow: ids */
 .noUi-connect { background-color: var(--red); } /* csslint allow: known-properties */
 /* setting */
 .ytrc-setting { background-color: var(--light); height: 100%; max-width: 100%; opacity: 0; padding: 1rem; position: absolute; right: 0; top: 0; -webkit-transform: translateX(100%); -moz-transform: translateX(100%); -ms-transform: translateX(100%); -o-transform: translateX(100%); transform: translateX(100%); width: 15rem; } /* csslint allow: box-model, known-properties */

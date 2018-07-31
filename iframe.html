@@ -57,7 +57,12 @@
                         </div>
                       </div>
                     </div>
-                    <div class="ytrc-input-error text-small text-red" v-if="!state.done"><i class="ytrc-icon ytrc-icon-info"></i> Not a valid YouTube {{ config.channel ? 'channel' : 'video' }} link!</div>
+                    <div class="ytrc-input-error text-small text-red" v-if="!state.done">
+                      <i class="ytrc-icon ytrc-icon-info"></i> 
+                      <span v-if="state.error.url || state.error.id">Not a valid YouTube {{ config.channel ? 'channel' : 'video' }} link, please check!</span>
+                      <span v-if="state.error.key">Not a valid YouTube app key, please regenerate!</span>
+                      <span v-if="state.error.other">Something wrong with network, please try again!</span>
+                    </div>
                   </div>
                   <div class="ytrc-input-item ytrc-input-views" v-show="!config.link">
                     <div class="ytrc-input-title text-center">Daily Video Views</div>
