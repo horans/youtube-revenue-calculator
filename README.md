@@ -7,7 +7,7 @@ Multiple options provided.
 
 ## Install
 
-Upload everthing to your server, eg.:
+Upload everything to your server, eg.:
 
 ```text
 //sample.com/ytrc/
@@ -54,6 +54,7 @@ Most of the options use "1/0" to present "on/off".
 * [Vue](https://github.com/vuejs/vue)
 * [vue-nouislider](https://github.com/horans/vue-nouislider)
 * [Web Font Loader](https://github.com/typekit/webfontloader)
+* [ES6-Promise](https://github.com/stefanpenner/es6-promise)
 
 ### References
 
@@ -69,6 +70,10 @@ Most of the options use "1/0" to present "on/off".
 * JavaScript: [standard](https://github.com/standard/standard)
 
 ### Change Log
+
+__180807__
+
+* add promise polyfill
 
 __180731__
 
