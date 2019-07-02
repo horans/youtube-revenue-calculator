@@ -3,7 +3,7 @@
 *  description: main function                        *
 *  author: horans@gmail.com                          *
 *  url: github.com/horans/youtube-revenue-calculator *
-*  update: 180731                                    *
+*  update: 190702                                    *
 *****************************************************/
 /* global Vue, WebFont, url, axios */
 /* eslint no-unused-vars: ["error", { "varsIgnorePattern": "ytrc" }] */
@@ -139,12 +139,12 @@ var ytrc = new Vue({
       base: 'https://www.googleapis.com/youtube/v3/',
       channel: {
         path: 'channels',
-        pattern: 'youtube.com/channel/',
+        pattern: ['youtube.com/channel/'],
         example: 'https://www.youtube.com/channel/UCY_LMaDAoa6hwHKBE4Dx56w'
       },
       video: {
         path: 'videos',
-        pattern: 'youtube.com/watch?v=',
+        pattern: ['youtube.com/watch?v=', 'youtu.be/'],
         example: 'https://www.youtube.com/watch?v=DqbcHgli0ik'
       }
     }
@@ -191,7 +191,14 @@ var ytrc = new Vue({
     queryYouTube: function () {
       var t = this
       var a = t.api[t.config.channel ? 'channel' : 'video']
-      var n = t.link.path.indexOf(a.pattern)
+      var n = -1
+      var id
+      for (var i = 0; i < a.pattern.length; i++) {
+        if (n === -1) {
+          n = t.link.path.indexOf(a.pattern[i])
+          id = t.link.path.substr(n + a.pattern[i].length)
+        }
+      }
       if (n > -1) {
         t.state.done = true
         t.state.error.url = false
@@ -205,7 +212,6 @@ var ytrc = new Vue({
         t.state.error.id = false
         t.state.error.key = false
         t.state.error.other = false
-        var id = t.link.path.substr(n + a.pattern.length)
         axios({
           method: 'get',
           url: t.api.base + a.path,
