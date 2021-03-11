@@ -3,10 +3,11 @@
 *  description: main function                        *
 *  author: horans@gmail.com                          *
 *  url: github.com/horans/youtube-revenue-calculator *
-*  update: 190702                                    *
+*  update: 210311                                    *
 *****************************************************/
 /* global Vue, WebFont, url, axios */
 /* eslint no-unused-vars: ["error", { "varsIgnorePattern": "ytrc" }] */
+/* eslint no-var: 0 */
 
 /* bus */
 var bus = new Vue()
@@ -78,12 +79,12 @@ var ytrc = new Vue({
           // step: 100,
           connect: [true, false],
           range: {
-            'min': [0, 1],
+            min: [0, 1],
             '20%': [1000, 100],
             '40%': [10000, 1000],
             '60%': [100000, 10000],
             '80%': [1000000, 100000],
-            'max': [10000000]
+            max: [10000000]
           },
           pips: {
             mode: 'range',
@@ -114,8 +115,8 @@ var ytrc = new Vue({
           connect: true,
           step: 0.01,
           range: {
-            'min': 0,
-            'max': 10
+            min: 0,
+            max: 10
           },
           pips: {
             mode: 'positions',
@@ -164,14 +165,12 @@ var ytrc = new Vue({
       var serialize = function (obj, state) {
         var str = []
         for (var p in obj) {
-          if (obj.hasOwnProperty(p)) {
-            var s = obj[p]
-            var v = true
-            if (typeof s === 'boolean') s = s ? 1 : 0
-            if (p === 'key' && !state.key) v = false
-            if (p === 'title' && !state.title) v = false
-            if (v) str.push(encodeURIComponent(p) + '=' + encodeURIComponent(s))
-          }
+          var s = obj[p]
+          var v = true
+          if (typeof s === 'boolean') s = s ? 1 : 0
+          if (p === 'key' && !state.key) v = false
+          if (p === 'title' && !state.title) v = false
+          if (v) str.push(encodeURIComponent(p) + '=' + encodeURIComponent(s))
         }
         return str.join('&')
       }
@@ -266,7 +265,7 @@ var ytrc = new Vue({
   },
   watch: {
     // update url when config changes
-    'config': {
+    config: {
       handler: function () {
         this.toggleLink()
       },

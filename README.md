@@ -72,6 +72,10 @@ Most of the options use "1/0" to present "on/off".
 ### Change Log
 
 ```text
+210311
+* update vendors
+* update api key
+
 190702
 * allow "youtu.be" url
 
