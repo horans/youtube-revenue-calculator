@@ -3,7 +3,7 @@
 *  description: main function                        *
 *  author: horans@gmail.com                          *
 *  url: github.com/horans/youtube-revenue-calculator *
-*  update: 210311                                    *
+*  update: 211018                                    *
 *****************************************************/
 /* global Vue, WebFont, url, axios */
 /* eslint no-unused-vars: ["error", { "varsIgnorePattern": "ytrc" }] */
@@ -51,7 +51,7 @@ var ytrc = new Vue({
       }
     },
     link: {
-      path: '',
+      path: url('?path'),
       likes: 0,
       subscribers: 0,
       videos: 0,
@@ -145,7 +145,7 @@ var ytrc = new Vue({
       },
       video: {
         path: 'videos',
-        pattern: ['youtube.com/watch?v=', 'youtu.be/'],
+        pattern: ['youtube.com/watch?v=', 'youtu.be/', 'youtube.com/embed/'],
         example: 'https://www.youtube.com/watch?v=DqbcHgli0ik'
       }
     }
@@ -161,7 +161,7 @@ var ytrc = new Vue({
       }
     },
     toggleLink: function () {
-      // stackoverflow.com/questions/1714786/
+      // https://stackoverflow.com/questions/1714786/
       var serialize = function (obj, state) {
         var str = []
         for (var p in obj) {
@@ -177,7 +177,7 @@ var ytrc = new Vue({
       var l = window.location
       window.history.replaceState(null, null, l.protocol + '//' + l.host + l.pathname + '?' + serialize(this.config, this.state))
     },
-    // calculate revennue
+    // calculate revenue
     calculateRevenue: function (rpm, days) {
       // views * rpm * days / 1000
       return (this.link.views * (parseFloat(rpm) || this.slider.rpm.value[0]) * (parseInt(days) || 1) / 1000)

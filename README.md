@@ -31,6 +31,7 @@ Most of the options use "1/0" to present "on/off".
 * `key`: Generate your own YouTube app [key](https://console.developers.google.com/).
   * Change it in iframe `head` or pass by URL query.
   * Show in URL only when "Change Key" option is on with setting panel.
+* `path`: To input a preset youtube video/channel url
 * `channel`: Default mode is for "video", turn this on for "channel".
 * `desc`: To skip description under heading, turn this off.
 * `link`: To manually input video views, turn this off.
@@ -71,20 +72,30 @@ Most of the options use "1/0" to present "on/off".
 
 ### Change Log
 
-```text
-210311
+#### 20211018
+
+* allow pass video/channel path from url
+* support "youtube.com/embed/" path
+* update vendor with online version
+
+#### 210311
+
 * update vendors
 * update api key
 
-190702
-* allow "youtu.be" url
+#### 190702
 
-180807
+* allow "youtu.be/" path
+
+#### 180807
+
 * add promise polyfill
 
-180731
+#### 180731
+
 * show error
 * replace CPM with RPM
 
-180727
+#### 180727
+
 * initial release

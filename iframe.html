@@ -3,10 +3,10 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
-    <link rel="stylesheet" href="./vendor/bootstrap-reboot.min.css" />
-    <link rel="stylesheet" href="./vendor/bootstrap-grid.min.css" />
-    <link rel="stylesheet" href="./vendor/pretty-checkbox.min.css" />
-    <link rel="stylesheet" href="./vendor/nouislider.min.css" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/twbs/bootstrap/dist/css/bootstrap-reboot.min.css" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/twbs/bootstrap/dist/css/bootstrap-grid.min.css" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/lokesh-coder/pretty-checkbox/dist/pretty-checkbox.min.css" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nouislider/dist/nouislider.min.css" />
     <link rel="stylesheet" href="./asset/youtube.css" />
     <link rel="stylesheet" href="./youtube-revenue.css" />
     <link rel="shortcut icon" href="./asset/favicon.ico" type="image/x-icon">
@@ -17,10 +17,10 @@
     <!--
     /*****************************************************
     *  project: youtube revenue calculator               *
-    *  description: iframe to be embeddd                 *
+    *  description: iframe to be embedded                *
     *  author: horans@gmail.com                          *
     *  url: github.com/horans/youtube-revenue-calculator *
-    *  update: 210311                                    *
+    *  update: 211018                                    *
     *****************************************************/
      -->
 
@@ -73,7 +73,7 @@
                   </div>
                   <div class="ytrc-input-item ytrc-input-note text-small" v-show="config.note" ref="note-content">
                     <p>Note: This calculator estimates the money that can be obtained from a YouTube video based on the number of views and the RPM (Revenue per 1000 Impressions). The default RPM range is from $1.36 to $3.40.</p>
-                    <p>It is important to note that this RPM range is AFTER the cut Google takes from Adsense earnings which is 45%. Thus the total earnings on YouTube is estimated at near $2.00 to $5.00 RPM.</p>
+                    <p>It is important to note that this RPM range is AFTER the cut Google takes from AdSense earnings which is 45%. Thus the total earnings on YouTube is estimated at near $2.00 to $5.00 RPM.</p>
                   </div>
                 </div>
               </div>
@@ -262,14 +262,14 @@
     </main>
 
     <!-- vendor -->
-    <script src="./vendor/url.min.js"></script>
-    <script src="./vendor/vue.min.js"></script>
-    <script src="./vendor/axios.min.js"></script>
-    <script src="./vendor/webfontloader.js"></script>
-    <script src="./vendor/nouislider.min.js"></script>
-    <script src="./vendor/vue-nouislider.js"></script>
-    <script src="./vendor/es6-promise.auto.min.js"></script>
-    <!-- inpage -->
+    <script src="https://cdn.jsdelivr.net/gh/websanova/js-url/dist/url.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vue"></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios"></script>
+    <script src="https://cdn.jsdelivr.net/gh/typekit/webfontloader/webfontloader.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/nouislider"></script>
+    <script src="https://cdn.jsdelivr.net/gh/horans/vue-nouislider/vue-nouislider.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/es6-promise"></script>
+    <!-- in page -->
     <script src="./youtube-revenue.js"></script>
   </body>
 </html>
