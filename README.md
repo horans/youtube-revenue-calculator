@@ -31,7 +31,8 @@ Most of the options use "1/0" to present "on/off".
 * `key`: Generate your own YouTube app [key](https://console.developers.google.com/).
   * Change it in iframe `head` or pass by URL query.
   * Show in URL only when "Change Key" option is on with setting panel.
-* `path`: To input a preset youtube video/channel url
+* `path`: To input a preset youtube video/channel url.
+  * The preset path will be auto queried on start.
 * `channel`: Default mode is for "video", turn this on for "channel".
 * `desc`: To skip description under heading, turn this off.
 * `link`: To manually input video views, turn this off.
@@ -72,7 +73,12 @@ Most of the options use "1/0" to present "on/off".
 
 ### Change Log
 
-#### 20211018
+#### 211020
+
+* auto query path on start
+* check channel/video id length
+
+#### 211018
 
 * allow pass video/channel path from url
 * support "youtube.com/embed/" path

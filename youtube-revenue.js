@@ -3,7 +3,7 @@
 *  description: main function                        *
 *  author: horans@gmail.com                          *
 *  url: github.com/horans/youtube-revenue-calculator *
-*  update: 211018                                    *
+*  update: 211020                                    *
 *****************************************************/
 /* global Vue, WebFont, url, axios */
 /* eslint no-unused-vars: ["error", { "varsIgnorePattern": "ytrc" }] */
@@ -195,10 +195,10 @@ var ytrc = new Vue({
       for (var i = 0; i < a.pattern.length; i++) {
         if (n === -1) {
           n = t.link.path.indexOf(a.pattern[i])
-          id = t.link.path.substr(n + a.pattern[i].length)
+          id = t.link.path.substring(n + a.pattern[i].length)
         }
       }
-      if (n > -1) {
+      if (n > -1 && id.length === (t.config.channel ? 24 : 11)) {
         t.state.done = true
         t.state.error.url = false
       } else {
@@ -254,6 +254,7 @@ var ytrc = new Vue({
     }
   },
   created: function () {
+    if (this.link.path) this.queryYouTube()
   },
   mounted: function () {
     // page ready when font loaded
