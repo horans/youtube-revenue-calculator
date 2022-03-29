@@ -73,6 +73,10 @@ Most of the options use "1/0" to present "on/off".
 
 ### Change Log
 
+#### 220329
+
+* change vendor to vue v2
+
 #### 211020
 
 * auto query path on start
